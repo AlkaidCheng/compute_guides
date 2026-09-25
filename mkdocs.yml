@@ -7,11 +7,13 @@ site_url: https://alkaidcheng.github.io/compute_guides/
 repo_url: https://github.com/AlkaidCheng/compute_guides
 repo_name: AlkaidCheng/compute_guides
 edit_uri: edit/main/docs/
-copyright: Copyright &copy; 2026 Alkaid Cheng
 
 theme:
   name: material
   language: en
+  font:
+    text: Inter
+    code: JetBrains Mono
   icon:
     logo: material/console
     repo: fontawesome/brands/github
@@ -22,26 +24,23 @@ theme:
         name: Switch to light mode
     - media: "(prefers-color-scheme: light)"
       scheme: default
-      primary: indigo
-      accent: indigo
+      primary: custom
+      accent: custom
       toggle:
         icon: material/brightness-7
         name: Switch to dark mode
     - media: "(prefers-color-scheme: dark)"
       scheme: slate
-      primary: indigo
-      accent: indigo
+      primary: custom
+      accent: custom
       toggle:
         icon: material/brightness-4
         name: Switch to system preference
   features:
-    - navigation.tabs
     - navigation.sections
     - navigation.indexes
     - navigation.instant
     - navigation.tracking
-    - navigation.top
-    - navigation.footer
     - toc.follow
     - search.suggest
     - search.highlight
@@ -49,7 +48,16 @@ theme:
     - content.code.copy
     - content.code.annotate
     - content.tabs.link
-    - content.action.edit
+
+extra_css:
+  - stylesheets/theme.css
+  - stylesheets/code-tabs.css
+
+extra_javascript:
+  - javascripts/tabs.js
+
+extra:
+  generator: false
 
 plugins:
   - search
@@ -61,7 +69,8 @@ markdown_extensions:
   - md_in_html
   - tables
   - toc:
-      permalink: true
+      permalink: "#"
+      title: On this page
   - pymdownx.details
   - pymdownx.emoji:
       emoji_index: !!python/name:material.extensions.emoji.twemoji
@@ -76,6 +85,10 @@ markdown_extensions:
   - pymdownx.tabbed:
       alternate_style: true
 
+# The home page is reached from the header; it stays out of the sidebar.
+not_in_nav: |
+  /index.md
+
 # Turn nav and link problems into warnings so `mkdocs build --strict` fails on them.
 validation:
   nav:
@@ -89,9 +102,13 @@ validation:
     unrecognized_links: warn
 
 nav:
-  - Home: index.md
   - Unix:
       - unix/index.md
+      - unix/find.md
+      - unix/links.md
+      - unix/permissions.md
+      - unix/archives.md
+      - unix/ssh.md
   - Bash:
       - bash/index.md
   - Git:

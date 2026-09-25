@@ -1,0 +1,414 @@
+/* A quiet, minimal look on top of Material: the header blends into the page,
+   one accent colour, hairline borders instead of shadows, and code blocks
+   drawn as bordered cards with small titles. */
+
+/* ---- Palette ------------------------------------------------------------ */
+
+[data-md-color-scheme="default"] {
+  --md-primary-fg-color: #ffffff;
+  --md-primary-fg-color--light: #ffffffb3;
+  --md-primary-fg-color--dark: #f6f8fa;
+  --md-primary-bg-color: #1f2328;
+  --md-primary-bg-color--light: #1f232899;
+  --md-accent-fg-color: #2563eb;
+  --md-accent-fg-color--transparent: #2563eb14;
+  --md-typeset-a-color: #2563eb;
+  --md-code-bg-color: #f6f8fa;
+  --md-code-fg-color: #1f2328;
+}
+
+[data-md-color-scheme="slate"] {
+  --md-primary-fg-color: var(--md-default-bg-color);
+  --md-primary-fg-color--light: var(--md-default-bg-color--light);
+  --md-primary-fg-color--dark: var(--md-default-bg-color);
+  --md-primary-bg-color: var(--md-default-fg-color);
+  --md-primary-bg-color--light: var(--md-default-fg-color--light);
+  --md-accent-fg-color: #6ea8fe;
+  --md-accent-fg-color--transparent: #6ea8fe1a;
+  --md-typeset-a-color: #6ea8fe;
+}
+
+/* ---- Header and footer -------------------------------------------------- */
+
+.md-header,
+.md-header--shadow {
+  box-shadow: 0 .05rem 0 var(--md-default-fg-color--lightest);
+}
+
+.md-header__topic:first-child {
+  font-weight: 600;
+}
+
+/* The repository link shows as the GitHub icon alone. */
+.md-header__source {
+  width: auto;
+}
+
+.md-source__repository {
+  display: none;
+}
+
+[data-md-color-scheme="default"] .md-search__form {
+  background-color: #0000000d;
+}
+
+[data-md-color-scheme="default"] .md-search__form:hover {
+  background-color: #00000014;
+}
+
+[data-md-color-scheme="slate"] .md-search__form {
+  background-color: #ffffff0f;
+}
+
+[data-md-color-scheme="slate"] .md-search__form:hover {
+  background-color: #ffffff1a;
+}
+
+/* No footer: the guides are not read in order, so previous / next links
+   would suggest a sequence that does not exist. */
+.md-footer {
+  display: none;
+}
+
+/* ---- Navigation --------------------------------------------------------- */
+
+.md-nav {
+  font-size: .68rem;
+}
+
+.md-nav__link--active,
+.md-nav__link--active:hover {
+  font-weight: 600;
+}
+
+/* On wide screens the sidebar lists the whole site: each topic is a heading
+   with its icon, and its pages hang off a guide line underneath, the current
+   one marked on that line. The phone menu keeps Material's drill-down. */
+@media screen and (min-width: 76.25em) {
+  /* The site name is already in the header. */
+  .md-nav--primary > .md-nav__title {
+    display: none;
+  }
+
+  .md-nav--primary > .md-nav__list > .md-nav__item--section + .md-nav__item--section {
+    margin-top: 1.6em;
+  }
+
+  .md-nav--primary .md-nav__item--section > .md-nav__link {
+    margin-top: 0;
+    color: var(--md-default-fg-color);
+    font-size: .7rem;
+    font-weight: 600;
+  }
+
+  .md-nav--primary .md-nav__item--section > .md-nav__link .md-nav__link {
+    gap: .45rem;
+  }
+
+  .md-nav--primary .md-nav__item--section > .md-nav__link svg {
+    width: .9rem;
+    height: .9rem;
+    fill: var(--md-default-fg-color--light);
+  }
+
+  /* The guide line runs under the centre of the topic icon. */
+  .md-nav--primary .md-nav__item--section > .md-nav > .md-nav__list {
+    margin: .35rem 0 0 1rem;
+    padding: 0;
+    border-left: .05rem solid var(--md-default-fg-color--lightest);
+  }
+
+  .md-nav--primary .md-nav__item--section > .md-nav > .md-nav__list:not(:has(> .md-nav__item)) {
+    display: none;
+  }
+
+  .md-nav--primary .md-nav__item--section > .md-nav .md-nav__link {
+    margin: 0 0 0 -.05rem;
+    padding: .3em 0 .3em .8rem;
+    border-left: .1rem solid transparent;
+    color: var(--md-default-fg-color--light);
+  }
+
+  .md-nav--primary .md-nav__item--section > .md-nav .md-nav__link:hover {
+    color: var(--md-default-fg-color);
+  }
+
+  .md-nav--primary .md-nav__item--section > .md-nav .md-nav__link--active {
+    border-left-color: var(--md-accent-fg-color);
+    color: var(--md-accent-fg-color);
+  }
+}
+
+/* "On this page" is a label, set apart from the entries below it by case,
+   size and a rule; the entries sit on a guide line like the sidebar's pages,
+   with the section being read marked on the line. */
+@media screen and (min-width: 60em) {
+  .md-sidebar--secondary .md-nav--secondary > .md-nav__title {
+    margin-bottom: .5rem;
+    padding: 0 0 .5rem;
+    border-bottom: .05rem solid var(--md-default-fg-color--lightest);
+    box-shadow: none;
+    color: var(--md-default-fg-color--light);
+    font-size: .58rem;
+    font-weight: 600;
+    letter-spacing: .08em;
+    text-transform: uppercase;
+  }
+
+  .md-sidebar--secondary .md-nav--secondary > .md-nav__list {
+    padding: 0;
+    border-left: .05rem solid var(--md-default-fg-color--lightest);
+  }
+
+  .md-sidebar--secondary .md-nav--secondary .md-nav__list .md-nav__list {
+    padding: 0;
+  }
+
+  .md-sidebar--secondary .md-nav--secondary .md-nav__item {
+    padding: 0;
+  }
+
+  .md-sidebar--secondary .md-nav--secondary .md-nav__link {
+    margin: 0 0 0 -.05rem;
+    padding: .25em 0 .25em .75rem;
+    border-left: .1rem solid transparent;
+    color: var(--md-default-fg-color--light);
+  }
+
+  .md-sidebar--secondary .md-nav--secondary .md-nav .md-nav__link {
+    padding-left: 1.4rem;
+  }
+
+  .md-sidebar--secondary .md-nav--secondary .md-nav__link:hover {
+    color: var(--md-default-fg-color);
+  }
+
+  .md-sidebar--secondary .md-nav--secondary .md-nav__link--active {
+    border-left-color: var(--md-accent-fg-color);
+    color: var(--md-accent-fg-color);
+  }
+}
+
+/* ---- Text ---------------------------------------------------------------- */
+
+.md-typeset {
+  line-height: 1.65;
+}
+
+.md-typeset h1 {
+  margin-bottom: .6em;
+  color: var(--md-default-fg-color);
+  font-size: 1.9em;
+  font-weight: 700;
+  letter-spacing: -.02em;
+}
+
+/* The sentence under the title reads as a lede. */
+.md-typeset h1 + p {
+  color: var(--md-default-fg-color--light);
+  font-size: 1.05em;
+}
+
+.md-typeset h2 {
+  margin-top: 2.2em;
+  padding-top: 1.1em;
+  border-top: .05rem solid var(--md-default-fg-color--lightest);
+  font-size: 1.3em;
+  font-weight: 600;
+  letter-spacing: -.01em;
+}
+
+.md-typeset h3 {
+  font-size: 1.05em;
+  font-weight: 600;
+}
+
+.md-typeset .headerlink {
+  color: var(--md-default-fg-color--lighter);
+}
+
+/* ---- Code ---------------------------------------------------------------- */
+
+.md-typeset .highlight {
+  margin: 1em 0;
+  overflow: hidden;
+  border: .05rem solid var(--md-default-fg-color--lightest);
+  border-radius: .3rem;
+}
+
+.md-typeset .highlight > pre,
+.md-typeset .highlight > span.filename {
+  margin: 0;
+}
+
+.md-typeset .highlight > pre > code {
+  border-radius: 0;
+}
+
+/* Code block titles as small, quiet labels. */
+.md-typeset .highlight > span.filename {
+  padding: .4rem .8rem;
+  border-bottom: .05rem solid var(--md-default-fg-color--lightest);
+  border-radius: 0;
+  color: var(--md-default-fg-color--light);
+  font-family: var(--md-text-font-family);
+  font-size: .62rem;
+  font-weight: 600;
+  line-height: 1.06rem;
+}
+
+.md-typeset code {
+  border-radius: .2rem;
+}
+
+/* ---- Tables -------------------------------------------------------------- */
+
+.md-typeset table:not([class]) {
+  border: 0;
+  border-radius: 0;
+  font-size: .72rem;
+}
+
+.md-typeset table:not([class]) th,
+.md-typeset table:not([class]) td {
+  min-width: 0;
+}
+
+.md-typeset table:not([class]) th {
+  padding: .5em 1.2em .5em 0;
+  border-bottom: .05rem solid var(--md-default-fg-color--lighter);
+  background-color: transparent;
+  font-weight: 600;
+}
+
+.md-typeset table:not([class]) td {
+  padding: .5em 1.2em .5em 0;
+  border-top: .05rem solid var(--md-default-fg-color--lightest);
+}
+
+.md-typeset table:not([class]) tbody tr:hover {
+  background-color: transparent;
+  box-shadow: none;
+}
+
+/* ---- Admonitions ---------------------------------------------------------- */
+
+.md-typeset .admonition,
+.md-typeset details {
+  border-width: 0 0 0 .15rem;
+  border-radius: .2rem;
+  font-size: .72rem;
+}
+
+.md-typeset .admonition > .admonition-title,
+.md-typeset details > summary {
+  background-color: transparent;
+  font-weight: 600;
+}
+
+/* ---- Home page cards ------------------------------------------------------ */
+
+/* One card per topic: icon and name only, and the whole card is the link. */
+.md-typeset .grid.cards > ul > li {
+  position: relative;
+  border: .05rem solid var(--md-default-fg-color--lightest);
+  border-radius: .4rem;
+  box-shadow: none;
+  transition: border-color .15s;
+}
+
+.md-typeset .grid.cards > ul > li:hover {
+  border-color: var(--md-accent-fg-color);
+  box-shadow: none;
+}
+
+.md-typeset .grid.cards .twemoji {
+  color: var(--md-default-fg-color--light);
+}
+
+.md-typeset .grid.cards > ul > li a {
+  color: var(--md-default-fg-color);
+}
+
+.md-typeset .grid.cards > ul > li:hover a {
+  color: var(--md-accent-fg-color);
+}
+
+.md-typeset .grid.cards > ul > li a::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+}
+
+/* ---- Topic pages ------------------------------------------------------------ */
+
+/* A topic's pages as one bordered list: each row is the page's title over a
+   one-line summary, and the whole row is the link. */
+.md-typeset .page-list > ul {
+  margin: 1.6em 0 0;
+  padding: 0;
+  overflow: hidden;
+  border: .05rem solid var(--md-default-fg-color--lightest);
+  border-radius: .4rem;
+  list-style: none;
+}
+
+.md-typeset .page-list > ul > li {
+  position: relative;
+  margin: 0;
+  padding: .7rem 2.4rem .75rem 1rem;
+  color: var(--md-default-fg-color--light);
+  font-size: .72rem;
+  line-height: 1.5;
+  transition: background-color .15s;
+}
+
+.md-typeset .page-list > ul > li + li {
+  border-top: .05rem solid var(--md-default-fg-color--lightest);
+}
+
+.md-typeset .page-list > ul > li > a:first-child {
+  display: block;
+  margin-bottom: .1rem;
+  color: var(--md-default-fg-color);
+  font-size: .8rem;
+  font-weight: 600;
+}
+
+.md-typeset .page-list > ul > li > a:first-child::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+}
+
+.md-typeset .page-list > ul > li::after {
+  content: "→";
+  position: absolute;
+  top: 50%;
+  right: 1rem;
+  color: var(--md-default-fg-color--lighter);
+  font-size: .8rem;
+  transform: translateY(-50%);
+  transition: color .15s, transform .15s;
+}
+
+.md-typeset .page-list > ul > li:hover {
+  background-color: var(--md-accent-fg-color--transparent);
+}
+
+.md-typeset .page-list > ul > li:hover > a:first-child,
+.md-typeset .page-list > ul > li:hover::after {
+  color: var(--md-accent-fg-color);
+}
+
+.md-typeset .page-list > ul > li:hover::after {
+  transform: translate(.15rem, -50%);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .md-typeset .grid.cards > ul > li,
+  .md-typeset .page-list > ul > li,
+  .md-typeset .page-list > ul > li::after {
+    transition: none;
+  }
+}
