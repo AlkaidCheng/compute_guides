@@ -1,3 +1,7 @@
+---
+icon: material/git
+---
+
 # Git
 
 Version control from the command line: the everyday commit-and-push loop,

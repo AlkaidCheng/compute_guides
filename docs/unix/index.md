@@ -1,3 +1,7 @@
+---
+icon: material/console
+---
+
 # Unix command line
 
 The core command-line tools shared by Linux and macOS: navigating and searching

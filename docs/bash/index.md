@@ -1,3 +1,7 @@
+---
+icon: material/bash
+---
+
 # Bash
 
 The shell language itself: expansions and quoting, redirection and pipes,
