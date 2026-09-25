@@ -17,5 +17,7 @@ working on remote machines.
 - [Permissions and groups](permissions.md)
   Read and change permissions with `chmod`, groups with `chgrp`, and defaults
   with `umask`.
+- [Archives](archives.md)
+  Pack and unpack directories with `tar` and `zip`.
 
 </div>

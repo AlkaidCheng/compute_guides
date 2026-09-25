@@ -107,6 +107,7 @@ nav:
       - unix/find.md
       - unix/links.md
       - unix/permissions.md
+      - unix/archives.md
   - Bash:
       - bash/index.md
   - Git:
