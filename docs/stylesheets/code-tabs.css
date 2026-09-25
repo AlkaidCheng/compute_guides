@@ -1,0 +1,122 @@
+/* Code cards with switches.
+
+   Content tabs whose panels hold only code blocks (the Syntax and Example
+   views of a command) render as a single code card whose title row is the
+   switch. Tabs whose panels each hold one such card (the Linux and macOS
+   forms of a command) render as a compact second switch at the right end of
+   that title row. Tabs holding any other content keep the default look. */
+
+/* ---- Code card: every panel holds only code blocks ------------------------ */
+
+.md-typeset .tabbed-set:has(> .tabbed-content > .tabbed-block > .highlight):not(:has(> .tabbed-content > .tabbed-block > :not(.highlight))) {
+  overflow: hidden;
+  border: .05rem solid var(--md-default-fg-color--lightest);
+  border-radius: .3rem;
+  background-color: var(--md-code-bg-color);
+
+  /* Same height and text inset as a code block's title bar (theme.css).
+     No text-transform: Material links tabs by comparing label innerText,
+     which only rendered labels transform, so hidden tabs would stop
+     syncing. */
+  > .tabbed-labels {
+    gap: .15rem;
+    max-width: none;
+    margin: 0;
+    padding: .4rem;
+    border-bottom: .05rem solid var(--md-default-fg-color--lightest);
+    box-shadow: none;
+
+    &::before,
+    &::after {
+      display: none;
+    }
+
+    > label {
+      height: 1.06rem;
+      padding: 0 .4rem;
+      border: 0;
+      border-radius: .15rem;
+      color: var(--md-default-fg-color--light);
+      font-size: .62rem;
+      font-weight: 600;
+      line-height: 1.06rem;
+
+      /* Material stretches the tab's anchor over its default label padding. */
+      > a {
+        margin: 0;
+        padding: 0;
+      }
+    }
+  }
+
+  > input:nth-child(1):checked ~ .tabbed-labels > :nth-child(1),
+  > input:nth-child(2):checked ~ .tabbed-labels > :nth-child(2),
+  > input:nth-child(3):checked ~ .tabbed-labels > :nth-child(3),
+  > input:nth-child(4):checked ~ .tabbed-labels > :nth-child(4) {
+    background-color: var(--md-accent-fg-color--transparent);
+    color: var(--md-accent-fg-color);
+  }
+
+  > .tabbed-control {
+    display: none;
+  }
+
+  > .tabbed-content > .tabbed-block > .highlight {
+    margin: 0;
+    border: 0;
+    border-radius: 0;
+  }
+}
+
+/* ---- Platform switch: every panel holds one code card --------------------- */
+
+.md-typeset .tabbed-set:has(> .tabbed-content > .tabbed-block > .tabbed-set):not(:has(> .tabbed-content > .tabbed-block > :not(.tabbed-set))) {
+  /* Out of the flow, over the right end of the inner card's title row. */
+  > .tabbed-labels {
+    position: absolute;
+    top: .45rem;
+    right: .5rem;
+    z-index: 2;
+    gap: .1rem;
+    max-width: none;
+    margin: 0;
+    padding: 0;
+    overflow: visible;
+    box-shadow: none;
+
+    &::before,
+    &::after {
+      display: none;
+    }
+
+    > label {
+      height: 1.06rem;
+      padding: 0 .45rem;
+      border: 0;
+      border-radius: .15rem;
+      font-size: .62rem;
+      line-height: 1.06rem;
+
+      > a {
+        margin: 0;
+        padding: 0;
+      }
+    }
+  }
+
+  > input:nth-child(1):checked ~ .tabbed-labels > :nth-child(1),
+  > input:nth-child(2):checked ~ .tabbed-labels > :nth-child(2),
+  > input:nth-child(3):checked ~ .tabbed-labels > :nth-child(3),
+  > input:nth-child(4):checked ~ .tabbed-labels > :nth-child(4) {
+    background-color: var(--md-accent-fg-color--transparent);
+    color: var(--md-accent-fg-color);
+  }
+
+  > .tabbed-control {
+    display: none;
+  }
+
+  > .tabbed-content > .tabbed-block > .tabbed-set {
+    margin: 0;
+  }
+}
