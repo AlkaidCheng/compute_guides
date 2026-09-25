@@ -14,5 +14,8 @@ working on remote machines.
   Count files and directories with `find`.
 - [Links](links.md)
   Create, inspect and remove symbolic and hard links.
+- [Permissions and groups](permissions.md)
+  Read and change permissions with `chmod`, groups with `chgrp`, and defaults
+  with `umask`.
 
 </div>
