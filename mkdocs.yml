@@ -108,6 +108,7 @@ nav:
       - unix/links.md
       - unix/permissions.md
       - unix/archives.md
+      - unix/ssh.md
   - Bash:
       - bash/index.md
   - Git:

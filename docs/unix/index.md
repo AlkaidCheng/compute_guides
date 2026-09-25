@@ -19,5 +19,7 @@ working on remote machines.
   with `umask`.
 - [Archives](archives.md)
   Pack and unpack directories with `tar` and `zip`.
+- [SSH](ssh.md)
+  Generate key pairs and install them on servers and GitHub.
 
 </div>
