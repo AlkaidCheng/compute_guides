@@ -10,6 +10,8 @@ working on remote machines.
 
 <div class="page-list" markdown>
 
+- [Finding files](find.md)
+  Count files and directories with `find`.
 - [Links](links.md)
   Create, inspect and remove symbolic and hard links.
 

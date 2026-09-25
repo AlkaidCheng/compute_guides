@@ -104,6 +104,7 @@ validation:
 nav:
   - Unix:
       - unix/index.md
+      - unix/find.md
       - unix/links.md
   - Bash:
       - bash/index.md
