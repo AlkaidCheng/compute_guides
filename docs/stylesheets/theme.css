@@ -36,7 +36,7 @@
 }
 
 .md-header__topic:first-child {
-  font-weight: 600;
+  font-weight: 700;
 }
 
 /* The repository link shows as the GitHub icon alone. */
@@ -78,7 +78,7 @@
 
 .md-nav__link--active,
 .md-nav__link--active:hover {
-  font-weight: 600;
+  font-weight: 700;
 }
 
 /* On wide screens the sidebar lists the whole site: each topic is a heading
@@ -98,7 +98,7 @@
     margin-top: 0;
     color: var(--md-default-fg-color);
     font-size: .7rem;
-    font-weight: 600;
+    font-weight: 700;
   }
 
   .md-nav--primary .md-nav__item--section > .md-nav__link .md-nav__link {
@@ -150,7 +150,7 @@
     box-shadow: none;
     color: var(--md-default-fg-color--light);
     font-size: .58rem;
-    font-weight: 600;
+    font-weight: 700;
     letter-spacing: .08em;
     text-transform: uppercase;
   }
@@ -214,13 +214,13 @@
   padding-top: 1.1em;
   border-top: .05rem solid var(--md-default-fg-color--lightest);
   font-size: 1.3em;
-  font-weight: 600;
+  font-weight: 700;
   letter-spacing: -.01em;
 }
 
 .md-typeset h3 {
   font-size: 1.05em;
-  font-weight: 600;
+  font-weight: 700;
 }
 
 .md-typeset .headerlink {
@@ -253,7 +253,7 @@
   color: var(--md-default-fg-color--light);
   font-family: var(--md-text-font-family);
   font-size: .62rem;
-  font-weight: 600;
+  font-weight: 700;
   line-height: 1.06rem;
 }
 
@@ -278,7 +278,7 @@
   padding: .5em 1.2em .5em 0;
   border-bottom: .05rem solid var(--md-default-fg-color--lighter);
   background-color: transparent;
-  font-weight: 600;
+  font-weight: 700;
 }
 
 .md-typeset table:not([class]) td {
@@ -303,7 +303,7 @@
 .md-typeset .admonition > .admonition-title,
 .md-typeset details > summary {
   background-color: transparent;
-  font-weight: 600;
+  font-weight: 700;
 }
 
 /* ---- Home page cards ------------------------------------------------------ */
@@ -372,7 +372,7 @@
   margin-bottom: .1rem;
   color: var(--md-default-fg-color);
   font-size: .8rem;
-  font-weight: 600;
+  font-weight: 700;
 }
 
 .md-typeset .page-list > ul > li > a:first-child::after {
