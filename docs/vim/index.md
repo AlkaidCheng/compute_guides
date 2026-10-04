@@ -12,6 +12,8 @@ Unless a task says otherwise, everything here works in both Vim and Neovim.
 
 - [Basics](basics.md)
   Switch modes, save and quit, undo and repeat.
+- [Moving around](moving.md)
+  Jump by line, word, paragraph and screen, or to a line number.
 
 </div>
 

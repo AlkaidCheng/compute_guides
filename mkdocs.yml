@@ -116,3 +116,4 @@ nav:
   - Vim:
       - vim/index.md
       - vim/basics.md
+      - vim/moving.md
