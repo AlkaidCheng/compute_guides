@@ -20,8 +20,10 @@ Open a file, switch between modes, save and quit, and undo or repeat a change.
     vim +/TODO analysis.py       # open at the first TODO
     ```
 
-A file that does not exist yet is created when you first save. Inside Vim,
-`:e <file>` opens another file.
+`vim <file>` opens the file at its first line; several files open one after
+another. `+<line>` starts the cursor on that line, and `+/<pattern>` on the
+first line that matches. A file that does not exist yet is created when you
+first save. Inside Vim, `:e <file>` opens another file.
 
 ## Switch modes
 
@@ -75,13 +77,19 @@ are unsure where you are.
     :q!              " quit and discard unsaved changes
     ```
 
-`:q` refuses to quit while there are unsaved changes; `:q!` discards them.
-
 | Command | Does |
 |---|---|
-| `:x` or `ZZ` | save if changed, then quit |
+| `:w` | save the file |
+| `:w <file>` | save a copy to `<file>` and keep editing the original |
+| `:q` | quit; refuses while there are unsaved changes |
+| `:wq` | save, then quit |
+| `:q!` | quit and discard unsaved changes |
+| `:x` or `ZZ` | save only if there are changes, then quit |
 | `ZQ` | quit without saving, like `:q!` |
 | `:wa` / `:qa` | save / quit every open file |
+
+`:w <file>` refuses to overwrite a file that already exists; `:w! <file>`
+overwrites it.
 
 ## Undo and redo
 
@@ -100,8 +108,9 @@ are unsure where you are.
     <C-r>            " redo
     ```
 
-Undo steps back one change at a time, where a change is one Normal-mode
-command or everything typed in a single visit to Insert mode.
+`u` undoes the last change and ++ctrl+r++ redoes it; a count undoes or redoes
+that many changes. A change is one Normal-mode command or everything typed in
+a single visit to Insert mode.
 
 ## Repeat the last change
 

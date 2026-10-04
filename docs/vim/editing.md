@@ -73,9 +73,13 @@ which add blank lines below and above and leave the cursor where it was.
     :10,20d          " delete lines 10 to 20
     ```
 
+`dd` deletes the current line, and a count deletes that many lines starting
+with it. `D` deletes from the cursor to the end of the line, and
+`:<from>,<to>d` deletes a range of lines by number. `dG` deletes to the end of
+the file and `dgg` to the start; `cc` empties the line and enters Insert mode
+to retype it.
+
 Deleted text is kept, so `p` pastes it back elsewhere: deleting is cutting.
-`dG` deletes to the end of the file and `dgg` to the start; `cc` empties the
-line and enters Insert mode to retype it.
 
 ## Copy and paste lines
 
@@ -96,9 +100,10 @@ line and enters Insert mode to retype it.
     P                " paste above it
     ```
 
-`y` is *yank*, Vim's word for copy. `p` and `P` paste whatever was last
-yanked or deleted: whole lines go below or above the cursor's line, a part of
-a line after or before the cursor. In Visual mode, `y` copies the selection
+`yy` copies the current line, and a count copies that many lines starting
+with it; `y` is *yank*, Vim's word for copy. `p` and `P` paste whatever was
+last yanked or deleted: whole lines go below or above the cursor's line, a
+part of a line after or before the cursor. A count pastes that many copies. In Visual mode, `y` copies the selection
 and `d` cuts it.
 
 ## Copy to the system clipboard
@@ -147,7 +152,10 @@ the clipboard.
     :t.              " the same, without touching the copied text
     ```
 
-`:t` copies lines to below a target line, and `.` is the current line.
+`yyp` copies the line and pastes the copy below it. `:t.` does the same as
+one command: `:t` copies lines to below a target line, and `.` is the current
+line. Unlike `yyp`, it leaves the last copied text unchanged, so a later `p`
+still pastes it.
 
 ## Move a line up or down
 
@@ -228,9 +236,11 @@ there.
     gg=G             " re-indent the whole file
     ```
 
-In Visual mode, `>` and `<` shift the selected lines and `=` re-indents them.
-`=` uses the indent rules of the file's type. One level is set by
-`shiftwidth`, for example `:set shiftwidth=4`.
+`>>` shifts the current line one level right and `<<` one level left; a
+count shifts that many lines. `==` re-indents the line using the indent rules
+of the file's type, and `gg=G` re-indents the whole file. In Visual mode, `>`,
+`<` and `=` act on the selected lines. One level is set by `shiftwidth`, for
+example `:set shiftwidth=4`.
 
 ## Change case
 

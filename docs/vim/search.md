@@ -79,8 +79,11 @@ replaced. With `c`, Vim stops at each match: `y` replaces it, `n` skips it,
     :.,$s/colour/color/g     " from here to the end of the file
     ```
 
-To replace in a selection, select the lines with `V` and press `:`. Vim
-fills in the range as `:'<,'>`; type `s/colour/color/g` after it.
+`:s` with no range replaces on the current line only. A range in front of it
+limits the replacement to those lines: `10,20` is lines 10 to 20, `.` is the
+current line and `$` the last line. To replace in a selection, select the
+lines with `V` and press `:`. Vim fills in the range as `:'<,'>`; type
+`s/colour/color/g` after it.
 
 ## Match a whole word
 
