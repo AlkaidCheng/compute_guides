@@ -114,8 +114,10 @@ blank line before and after it, or on the first or last line of the file.
     :42              " line 42
     ```
 
-++ctrl+g++ shows the current line number and the file's length.
-`:set number` shows line numbers in the margin.
+`gg` goes to the first line and `G` to the last. With a line number, both
+`<line>G` and `:<line>` go to that line. ++ctrl+g++ shows the current line
+number and the file's length, and `:set number` shows line numbers in the
+margin.
 
 ## Scroll the screen
 
