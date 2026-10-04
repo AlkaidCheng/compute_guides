@@ -14,6 +14,7 @@ that are easy to forget between projects.
 -   :material-console:{ .lg .middle } **[Unix command line](unix/index.md)**
 -   :material-bash:{ .lg .middle } **[Bash](bash/index.md)**
 -   :material-git:{ .lg .middle } **[Git](git/index.md)**
+-   :simple-vim:{ .lg .middle } **[Vim](vim/index.md)**
 
 </div>
 

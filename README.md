@@ -10,6 +10,7 @@ that are easy to forget between projects, organized by tool for fast lookup.
 - **Unix command line**: files, text processing, processes, archives and remote machines.
 - **Bash**: expansions, quoting, redirection, control flow and scripting idioms.
 - **Git**: everyday workflow, branching, history rewriting and recovery.
+- **Vim**: modes, moving around, editing lines, and search and replace.
 
 ## Building locally
 

@@ -1,7 +1,7 @@
 site_name: Compute Guides
 site_description: >-
   Quick-reference guides for everyday computing: the Unix command line,
-  Bash, Git, and more.
+  Bash, Git, Vim, and more.
 site_author: Alkaid Cheng
 site_url: https://alkaidcheng.github.io/compute_guides/
 repo_url: https://github.com/AlkaidCheng/compute_guides
@@ -113,3 +113,9 @@ nav:
       - bash/index.md
   - Git:
       - git/index.md
+  - Vim:
+      - vim/index.md
+      - vim/basics.md
+      - vim/moving.md
+      - vim/editing.md
+      - vim/search.md
