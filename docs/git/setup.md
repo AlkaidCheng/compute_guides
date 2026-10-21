@@ -197,8 +197,26 @@ Create the account at <https://github.com> first. `gh auth login` (the GitHub
 CLI) signs you in through the browser and stores a token. With `https` it also
 sets itself up as Git's credential helper, so `git push` and `git pull` work
 without a password prompt; with `ssh` it uploads an SSH key instead (see
-[SSH](../unix/ssh.md) for making one). GitHub no longer accepts your account
-password for Git over HTTPS: use `gh`, an SSH key, or a personal access token.
+[Use an SSH key with GitHub](#use-an-ssh-key-with-github)). GitHub no longer
+accepts your account password for Git over HTTPS: use `gh`, an SSH key, or a
+personal access token.
+
+## Use an SSH key with GitHub
+
+```bash title="Check"
+ssh -T git@github.com
+```
+
+Git over SSH (the `git@github.com:` addresses) signs in with a key pair
+instead of a token. Set it up once, following the SSH page:
+
+1. [Generate a key pair](../unix/ssh.md#generate-a-key-pair).
+2. [Add the public key to GitHub](../unix/ssh.md#add-your-public-key-to-github).
+3. [Add the key to the agent](../unix/ssh.md#add-the-key-to-the-agent), so
+   you type its passphrase once per session.
+
+The check then greets you by your GitHub username ("You've successfully
+authenticated"); GitHub offers no shell, so it exits right after.
 
 ## Save HTTPS credentials without gh
 
@@ -257,8 +275,10 @@ access tokens**. The helper then remembers them:
     git clone https://github.com/alice/analysis.git ~/projects/analysis
     ```
 
-The `git@github.com:` form authenticates with your SSH key, the `https://`
-form with the credential helper. Both copy the repository into a new folder,
+The `git@github.com:` form authenticates with your
+[SSH key](#use-an-ssh-key-with-github), the `https://` form with
+[gh](#sign-in-to-github) or a
+[credential helper](#save-https-credentials-without-gh). Both copy the repository into a new folder,
 named after the repository unless you give `<folder>`, with the remote
 `origin` pointing back at GitHub.
 
