@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+{% block content %}
+<article class="guide">
+  <header class="page-head">
+    <p class="page-kicker"><a href="{{ page.href(page.topic) }}">{{ icon(page.topic.icon) }} {{ page.topic.title }}</a></p>
+    <h1 class="page-title">{{ page.title }}</h1>
+    {% if page.lede_html %}<p class="lede">{{ page.lede_html | safe }}</p>{% endif %}
+    {% if page.sections | length > 1 %}
+    <nav class="on-this-page" aria-label="Tasks on this page">
+      <p class="otp-label">On this page</p>
+      <ul>
+        {% for s in page.sections %}
+        <li><a href="#{{ s.id }}">{{ s.title }}</a></li>
+        {% endfor %}
+      </ul>
+    </nav>
+    {% endif %}
+  </header>
+  <div class="prose">
+    {{ page.body_html | safe }}
+  </div>
+</article>
+{% endblock %}

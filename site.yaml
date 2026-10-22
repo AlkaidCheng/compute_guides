@@ -1,0 +1,29 @@
+title: Compute Guides
+subtitle: The commands, flags and idioms that are easy to forget between projects
+kicker: Quick reference
+author: Alkaid Cheng
+url: https://alkaidcheng.github.io/compute_guides/
+repo: https://github.com/AlkaidCheng/compute_guides
+
+# Topics in the order they appear in the contents; each lists its pages.
+# Each topic directory needs an index.md; each page is one Markdown file with a
+# YAML front matter block (title and a one-line summary).
+topics:
+  - dir: unix
+    pages:
+      - find.md
+      - links.md
+      - permissions.md
+      - archives.md
+      - ssh.md
+  - dir: bash
+    pages: []
+  - dir: git
+    pages:
+      - setup.md
+  - dir: vim
+    pages:
+      - basics.md
+      - moving.md
+      - editing.md
+      - search.md

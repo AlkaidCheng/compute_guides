@@ -1,4 +1,7 @@
-# Basics
+---
+title: Basics
+summary: Switch modes, save and quit, undo and repeat.
+---
 
 Open a file, switch between modes, save and quit, and undo or repeat a change.
 

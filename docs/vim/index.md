@@ -1,25 +1,11 @@
 ---
-icon: simple/vim
+title: Vim
+icon: vim
 ---
-
-# Vim
 
 The modal text editor found on almost every Unix machine: switching modes,
 saving and quitting, moving the cursor, editing lines, and search and replace.
 Unless a task says otherwise, everything here works in both Vim and Neovim.
-
-<div class="page-list" markdown>
-
-- [Basics](basics.md)
-  Switch modes, save and quit, undo and repeat.
-- [Moving around](moving.md)
-  Jump by line, word, paragraph and screen, or to a line number.
-- [Editing lines](editing.md)
-  Add, delete, copy, move, join and indent lines.
-- [Search and replace](search.md)
-  Find text, replace it across a file, and act on matching lines.
-
-</div>
 
 ## Reading the keys
 

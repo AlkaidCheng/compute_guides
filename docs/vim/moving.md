@@ -1,4 +1,7 @@
-# Moving around
+---
+title: Moving around
+summary: Jump by line, word, paragraph and screen, or to a line number.
+---
 
 Move the cursor in Normal mode: within a line, by word and paragraph, across
 the file and back to where you were.

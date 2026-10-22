@@ -1,4 +1,7 @@
-# Permissions and groups
+---
+title: Permissions and groups
+summary: "Read and change permissions with `chmod`, groups with `chgrp`, and defaults with `umask`."
+---
 
 Control who can read, change and run a file: `chmod` sets the permissions,
 `chgrp` the group, `umask` the defaults for new files.

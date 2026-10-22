@@ -1,4 +1,7 @@
-# Archives
+---
+title: Archives
+summary: "Pack and unpack directories with `tar` and `zip`."
+---
 
 Pack directories and files into one compressed file with `tar` or `zip`, and
 unpack them again. Use `tar` between Linux and macOS machines, since it keeps

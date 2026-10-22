@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+{% block title %}{{ site.title }}{% endblock %}
+{% block content %}
+<article class="home">
+  <header class="title-page">
+    <p class="title-kicker">{{ site.kicker }}</p>
+    <h1 class="site-title">{{ site.title }}</h1>
+    {% if site.subtitle %}<p class="site-subtitle">{{ site.subtitle }}</p>{% endif %}
+    <p class="site-author">{{ site.author }}</p>
+    <p class="site-edition">Revised {{ build_date }}</p>
+  </header>
+
+  <section class="contents" id="contents">
+    <h2>Contents</h2>
+    {% for topic in topics %}
+    <div class="contents-topic">
+      <a class="contents-topic-link" href="{{ page.href(topic) }}">
+        {{ icon(topic.icon) }}
+        <span class="contents-topic-title">{{ topic.title }}</span>
+      </a>
+      {% if topic.pages %}
+      <ul class="page-list">
+        {% for guide in topic.pages %}
+        <li>
+          <a href="{{ page.href(guide) }}">
+            <span class="page-list-title">{{ guide.title }}</span>
+            <span class="page-list-summary">{{ guide.summary_html | safe }}</span>
+          </a>
+        </li>
+        {% endfor %}
+      </ul>
+      {% else %}
+      <p class="contents-empty">In preparation.</p>
+      {% endif %}
+    </div>
+    {% endfor %}
+  </section>
+
+  <div class="prose">
+    {{ page.body_html | safe }}
+  </div>
+</article>
+{% endblock %}

@@ -1,4 +1,7 @@
-# Editing lines
+---
+title: Editing lines
+summary: Add, delete, copy, move, join and indent lines.
+---
 
 Add, delete, copy, move, join and indent whole lines, without leaving Normal
 mode for longer than you need to.

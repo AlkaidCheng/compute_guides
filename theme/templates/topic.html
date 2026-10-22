@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+{% block content %}
+<article class="topic">
+  <header class="page-head">
+    <p class="page-kicker">{{ icon(page.icon) }} Topic</p>
+    <h1 class="page-title">{{ page.title }}</h1>
+    {% if page.lede_html %}<p class="lede">{{ page.lede_html | safe }}</p>{% endif %}
+  </header>
+  <section class="topic-pages">
+    <h2>Pages</h2>
+    {% if page.pages %}
+    <ul class="page-list">
+      {% for guide in page.pages %}
+      <li>
+        <a href="{{ page.href(guide) }}">
+          <span class="page-list-title">{{ guide.title }}</span>
+          <span class="page-list-summary">{{ guide.summary_html | safe }}</span>
+        </a>
+      </li>
+      {% endfor %}
+    </ul>
+    {% else %}
+    <p class="contents-empty">The pages for this topic are in preparation.</p>
+    {% endif %}
+  </section>
+  <div class="prose">
+    {{ page.body_html | safe }}
+  </div>
+</article>
+{% endblock %}
