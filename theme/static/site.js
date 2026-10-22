@@ -1,0 +1,281 @@
+(function () {
+  "use strict";
+
+  var root = document.documentElement;
+  var body = document.body;
+  var base = root.getAttribute("data-root") || "./";
+
+  function store(key, value) {
+    try {
+      if (value === undefined) return JSON.parse(localStorage.getItem(key));
+      localStorage.setItem(key, JSON.stringify(value));
+    } catch (e) {}
+    return null;
+  }
+
+  /* ---------------------------------------------------------- colour scheme */
+
+  var toggle = document.querySelector(".theme-toggle");
+  if (toggle) {
+    toggle.addEventListener("click", function () {
+      var next = root.getAttribute("data-theme") === "dark" ? "light" : "dark";
+      root.setAttribute("data-theme", next);
+      try { localStorage.setItem("theme", next); } catch (e) {}
+    });
+  }
+
+  /* ---------------------------------------------------------- phone sidebar */
+
+  var menu = document.querySelector(".menu");
+  var scrim = document.querySelector(".scrim");
+  function setNav(open) {
+    body.classList.toggle("nav-open", open);
+    if (menu) menu.setAttribute("aria-expanded", String(open));
+    if (scrim) scrim.hidden = !open;
+  }
+  if (menu) menu.addEventListener("click", function () { setNav(!body.classList.contains("nav-open")); });
+  if (scrim) scrim.addEventListener("click", function () { setNav(false); });
+  document.querySelectorAll(".sidebar a").forEach(function (a) {
+    a.addEventListener("click", function () { setNav(false); });
+  });
+
+  /* -------------------------------------------------- active section marker */
+
+  var sectionLinks = Array.prototype.slice.call(document.querySelectorAll(".toc-sections a"));
+  if (sectionLinks.length && "IntersectionObserver" in window) {
+    var byId = {};
+    sectionLinks.forEach(function (a) { byId[a.getAttribute("href").slice(1)] = a; });
+    var headings = Object.keys(byId).map(function (id) { return document.getElementById(id); }).filter(Boolean);
+    var current = null;
+    function mark(id) {
+      if (current) current.parentElement.classList.remove("active");
+      current = byId[id] || null;
+      if (current) current.parentElement.classList.add("active");
+    }
+    var observer = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        if (entry.isIntersecting) mark(entry.target.id);
+      });
+    }, { rootMargin: "-10% 0px -75% 0px" });
+    headings.forEach(function (h) { observer.observe(h); });
+  }
+
+  /* ---------------------------------------------------------- linked tabs */
+
+  // Choosing a tab label ("Example", "macOS") switches every tab set on the
+  // page that has the same label, and is remembered for the next page: the
+  // stored list holds the labels in the order they were chosen, so replaying
+  // it leaves the latest choice in force for each switch.
+  var TABS_KEY = "tabs";
+  var labels = Array.prototype.slice.call(document.querySelectorAll(".tabbed-labels > label"));
+
+  function labelText(label) { return label.textContent.trim(); }
+
+  function selectAll(text) {
+    labels.forEach(function (label) {
+      if (labelText(label) !== text) return;
+      var input = document.getElementById(label.htmlFor);
+      if (input) input.checked = true;
+    });
+  }
+
+  (store(TABS_KEY) || []).forEach(selectAll);
+
+  function choose(label) {
+    var text = labelText(label);
+    // Cards above the clicked one may grow or shrink; keep the clicked
+    // switch where it is under the pointer.
+    var top = label.getBoundingClientRect().top;
+    selectAll(text);
+    var shift = label.getBoundingClientRect().top - top;
+    if (Math.abs(shift) >= 1) window.scrollBy(0, shift);
+    var chosen = (store(TABS_KEY) || []).filter(function (t) { return t !== text; });
+    chosen.push(text);
+    store(TABS_KEY, chosen.slice(-10));
+  }
+
+  labels.forEach(function (label) {
+    label.setAttribute("tabindex", "0");
+    label.setAttribute("role", "tab");
+    label.addEventListener("click", function (e) {
+      e.preventDefault();
+      choose(label);
+    });
+    label.addEventListener("keydown", function (e) {
+      if (e.key === "Enter" || e.key === " ") { e.preventDefault(); choose(label); }
+    });
+  });
+
+  /* ---------------------------------------------------------- copy buttons */
+
+  var CLIP =
+    '<svg class="clip" viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><rect x="8.5" y="8.5" width="11" height="11" rx="2" fill="none" stroke="currentColor" stroke-width="1.7"/><path d="M15.5 5.5v-1a1 1 0 0 0-1-1h-10a1 1 0 0 0-1 1v10a1 1 0 0 0 1 1h1" fill="none" stroke="currentColor" stroke-width="1.7"/></svg>' +
+    '<svg class="done" viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+
+  // The clipboard API needs a secure context and permission; where it is
+  // missing or refused, fall back to copying from a hidden text area.
+  function copyFallback(text, done) {
+    var area = document.createElement("textarea");
+    area.value = text;
+    area.setAttribute("readonly", "");
+    area.style.position = "fixed";
+    area.style.opacity = "0";
+    document.body.appendChild(area);
+    area.select();
+    var ok = false;
+    try { ok = document.execCommand("copy"); } catch (e) {}
+    area.remove();
+    if (ok) done();
+  }
+
+  function copyText(text, done) {
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(text).then(done, function () { copyFallback(text, done); });
+    } else {
+      copyFallback(text, done);
+    }
+  }
+
+  document.querySelectorAll(".highlight").forEach(function (block) {
+    var code = block.querySelector("pre code");
+    if (!code) return;
+    var button = document.createElement("button");
+    button.type = "button";
+    button.className = "copy";
+    button.title = "Copy to clipboard";
+    button.setAttribute("aria-label", "Copy to clipboard");
+    button.innerHTML = CLIP;
+    button.addEventListener("click", function () {
+      copyText(code.textContent.replace(/\n$/, ""), function () {
+        button.classList.add("copied");
+        setTimeout(function () { button.classList.remove("copied"); }, 1400);
+      });
+    });
+    block.insertBefore(button, block.querySelector("pre"));
+  });
+
+  /* -------------------------------------------------------- copy permalinks */
+
+  document.querySelectorAll("a.anchor").forEach(function (a) {
+    a.addEventListener("click", function (e) {
+      var url = new URL(a.getAttribute("href"), window.location.href).href;
+      history.replaceState(null, "", url);
+      var target = document.getElementById(a.getAttribute("href").slice(1));
+      if (target) target.scrollIntoView({ block: "start" });
+      e.preventDefault();
+      copyText(url, function () {
+        a.classList.add("copied");
+        setTimeout(function () { a.classList.remove("copied"); }, 1400);
+      });
+    });
+  });
+
+  /* ----------------------------------------------------------------- search */
+
+  var overlay = document.querySelector(".search");
+  var input = document.querySelector(".search-input");
+  var results = document.querySelector(".search-results");
+  var index = null;
+  var selected = -1;
+
+  function openSearch() {
+    if (!overlay) return;
+    overlay.hidden = false;
+    input.value = "";
+    results.innerHTML = "";
+    selected = -1;
+    input.focus();
+    if (!index) {
+      fetch(base + "search.json").then(function (r) { return r.json(); }).then(function (data) {
+        index = data.map(function (entry) {
+          entry.haystack = (entry.page + " " + entry.section + " " + entry.text).toLowerCase();
+          return entry;
+        });
+        runSearch();
+      }).catch(function () { index = []; });
+    }
+  }
+  function closeSearch() { if (overlay) overlay.hidden = true; }
+
+  function escapeHtml(s) {
+    return s.replace(/[&<>"]/g, function (c) { return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]; });
+  }
+
+  function snippet(text, terms) {
+    var lower = text.toLowerCase();
+    var at = -1;
+    terms.forEach(function (t) { var i = lower.indexOf(t); if (i >= 0 && (at < 0 || i < at)) at = i; });
+    var start = Math.max(0, at - 70);
+    var end = Math.min(text.length, (at < 0 ? 0 : at) + 150);
+    var out = (start > 0 ? "…" : "") + escapeHtml(text.slice(start, end)) + (end < text.length ? "…" : "");
+    terms.forEach(function (t) {
+      out = out.replace(new RegExp("(" + escapeHtml(t).replace(/[.*+?^${}()|[\]\\]/g, "\\$&") + ")", "ig"), "<mark>$1</mark>");
+    });
+    return out;
+  }
+
+  function runSearch() {
+    if (!index) return;
+    var terms = input.value.toLowerCase().split(/\s+/).filter(function (t) { return t.length > 1; });
+    results.innerHTML = "";
+    selected = -1;
+    if (!terms.length) return;
+    var scored = [];
+    index.forEach(function (entry) {
+      var score = 0;
+      for (var i = 0; i < terms.length; i++) {
+        var t = terms[i];
+        if (entry.haystack.indexOf(t) < 0) return;
+        score += 1;
+        if (entry.section.toLowerCase().indexOf(t) >= 0) score += 3;
+        if (entry.page.toLowerCase().indexOf(t) >= 0) score += 2;
+      }
+      scored.push({ entry: entry, score: score });
+    });
+    scored.sort(function (a, b) { return b.score - a.score; });
+    if (!scored.length) {
+      results.innerHTML = '<li class="search-empty">No matches.</li>';
+      return;
+    }
+    scored.slice(0, 12).forEach(function (hit) {
+      var e = hit.entry;
+      var li = document.createElement("li");
+      li.innerHTML =
+        '<a href="' + base + e.url + '">' +
+        '<span class="search-crumb">' + escapeHtml(e.page) + '</span>' +
+        '<span class="search-title">' + escapeHtml(e.section || e.page) + '</span>' +
+        '<span class="search-snippet">' + snippet(e.text, terms) + '</span></a>';
+      results.appendChild(li);
+    });
+  }
+
+  function moveSelection(delta) {
+    var items = results.querySelectorAll("li");
+    if (!items.length) return;
+    if (selected >= 0) items[selected].classList.remove("selected");
+    selected = (selected + delta + items.length) % items.length;
+    items[selected].classList.add("selected");
+    items[selected].scrollIntoView({ block: "nearest" });
+  }
+
+  if (overlay) {
+    document.querySelectorAll(".search-open").forEach(function (b) { b.addEventListener("click", openSearch); });
+    document.querySelector(".search-close").addEventListener("click", closeSearch);
+    overlay.addEventListener("click", function (e) { if (e.target === overlay) closeSearch(); });
+    input.addEventListener("input", runSearch);
+    input.addEventListener("keydown", function (e) {
+      if (e.key === "ArrowDown") { e.preventDefault(); moveSelection(1); }
+      else if (e.key === "ArrowUp") { e.preventDefault(); moveSelection(-1); }
+      else if (e.key === "Enter") {
+        var item = results.querySelector("li.selected a") || results.querySelector("li a");
+        if (item) window.location.href = item.getAttribute("href");
+      }
+    });
+    document.addEventListener("keydown", function (e) {
+      var typing = /^(INPUT|TEXTAREA)$/.test(document.activeElement.tagName);
+      if (e.key === "Escape" && !overlay.hidden) closeSearch();
+      else if (e.key === "/" && !typing && overlay.hidden) { e.preventDefault(); openSearch(); }
+      else if ((e.metaKey || e.ctrlKey) && e.key === "k") { e.preventDefault(); overlay.hidden ? openSearch() : closeSearch(); }
+    });
+  }
+})();

@@ -1,4 +1,7 @@
-# First-time setup
+---
+title: First-time setup
+summary: Set your identity and defaults, and sign in to GitHub.
+---
 
 Configure Git once on a new machine: your identity, sensible defaults, and
 access to GitHub.

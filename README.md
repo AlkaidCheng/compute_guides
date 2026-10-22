@@ -14,29 +14,36 @@ that are easy to forget between projects, organized by tool for fast lookup.
 
 ## Building locally
 
-The site is built with [Material for MkDocs](https://squidfunk.github.io/mkdocs-material/).
+The site is generated from Markdown by `build.py`, which needs Python 3.10 or
+later and the packages in `requirements.txt`.
 
 ```bash
 pip install -r requirements.txt
-mkdocs serve
+python3 build.py
+python3 -m http.server --directory site 8000
 ```
 
-Then open <http://127.0.0.1:8000/compute_guides/>; the page reloads as you edit.
-`mkdocs build --strict` runs the same check as CI and fails on broken links or
-pages missing from the navigation.
+Then open <http://127.0.0.1:8000/>. The build fails on a broken link or
+anchor, a page missing from `site.yaml`, and an absolute or unrecognized link.
 
 ## Adding a page
 
-1. Write the page as Markdown in its topic's directory under `docs/`. A new
-   topic is a new directory with an `index.md` landing page.
-2. Add the page to `nav` in `mkdocs.yml`.
-3. Link it from the topic's `index.md`.
+1. Write the page as Markdown in its topic's directory under `docs/`, starting
+   with a YAML front matter block that gives its `title` and a one-line
+   `summary` for the contents lists. The first paragraph is shown as the
+   page's introduction.
+2. Add the file name to the topic's `pages` list in `site.yaml`.
 
-Every pull request is built with `--strict`, and each push to `main` is
-deployed to GitHub Pages.
+A new topic is a new directory with an `index.md` (front matter `title` and
+`icon`, one of the names in `theme/icons/`) and an entry in `site.yaml`.
+
+Every pull request is built by CI, and each push to `main` is deployed to
+GitHub Pages.
 
 ## License
 
-[MIT](LICENSE)
+[MIT](LICENSE). Topic icons are from [Material Design
+Icons](https://pictogrammers.com/library/mdi/) (Apache 2.0) and [Simple
+Icons](https://simpleicons.org/) (CC0).
 
 Developed with the assistance of Claude Code.

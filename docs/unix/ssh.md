@@ -1,4 +1,7 @@
-# SSH
+---
+title: SSH
+summary: Generate key pairs and install them on servers and GitHub.
+---
 
 Log in to remote machines and services such as GitHub with a key pair instead
 of a password.

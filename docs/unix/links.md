@@ -1,4 +1,7 @@
-# Links
+---
+title: Links
+summary: Create, inspect and remove symbolic and hard links.
+---
 
 Give a file or directory a second name: a symbolic link points to a path, a
 hard link is another name for the same file.

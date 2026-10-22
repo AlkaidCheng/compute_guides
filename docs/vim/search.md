@@ -1,4 +1,7 @@
-# Search and replace
+---
+title: Search and replace
+summary: Find text, replace it across a file, and act on matching lines.
+---
 
 Find text in the file, replace it in a line, a range or the whole file, and
 act on every line that matches a pattern.

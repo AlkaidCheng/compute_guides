@@ -1,4 +1,7 @@
-# Finding files
+---
+title: Finding files
+summary: "Count files and directories with `find`."
+---
 
 Search a directory tree with `find` and count what it matches.
 
