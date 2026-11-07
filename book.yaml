@@ -4,25 +4,35 @@ kicker: Quick reference
 author: Alkaid Cheng
 url: https://alkaidcheng.github.io/compute_guides/
 repo: https://github.com/AlkaidCheng/compute_guides
+repo_host: GitHub
+# A page's edit link is this prefix followed by its path under book/.
+edit_url: https://github.com/AlkaidCheng/compute_guides/blob/main/book/
+
+layout: reference
+search_scope: guides
+search_hint: Type a command, flag or task.
+enlarge_tables: false
+export_menus: false
+not_found_page: true
+sitemap: true
 
 # Topics in the order they appear in the contents; each lists its pages.
 # Each topic directory needs an index.md; each page is one Markdown file with a
 # YAML front matter block (title and a one-line summary).
-topics:
+parts:
   - dir: unix
-    pages:
+    chapters:
       - find.md
       - links.md
       - permissions.md
       - archives.md
       - ssh.md
   - dir: bash
-    pages: []
   - dir: git
-    pages:
+    chapters:
       - setup.md
   - dir: vim
-    pages:
+    chapters:
       - basics.md
       - moving.md
       - editing.md
