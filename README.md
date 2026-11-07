@@ -46,5 +46,3 @@ GitHub Pages, as is a monthly rebuild that picks up new releases of bookspine.
 [MIT](LICENSE). Topic icons are from [Material Design
 Icons](https://pictogrammers.com/library/mdi/) (Apache 2.0) and [Simple
 Icons](https://simpleicons.org/) (CC0).
-
-Developed with the assistance of Claude Code.
